@@ -22,7 +22,13 @@ const HomeComponent = () => {
         }
     }
 
-    const handleExport = () => {
+
+function Enviar () {
+    console.log(dataCliente) // aca debe ir la funcion post para enviar a info 
+}
+
+
+  /*   const handleExport = () => {  // funcion para exportar el archivo xls
         const headings = [[
             'Empresa',
             'Encargado',
@@ -39,7 +45,7 @@ const HomeComponent = () => {
         utils.sheet_add_json(ws, dataCliente, { origin: 'A2', skipHeader: true });
         utils.book_append_sheet(wb, ws, 'Report');
         writeFile(wb, 'dataCliente Report.xlsx');
-    }
+    } */
 
     return (
         <>
@@ -50,13 +56,13 @@ const HomeComponent = () => {
                             <div className="input-group">                
                                 <div className="custom-file">
                                     <input type="file" name="file" className="custom-file-input" id="customFileLang" required onChange={handleImport} accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" lang="es"/>
-                                    <label class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
+                                    <label className="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-6">
-                            <button onClick={handleExport} className="btn btn-primary float-right">
-                                Export <i className="fa fa-download"></i>
+                            <button onClick={Enviar} className="btn btn-primary float-right">
+                                Cargar 
                             </button>
                         </div>
                     </div>
@@ -64,6 +70,7 @@ const HomeComponent = () => {
             </div>
             <div className="row">
                 <div className="col-sm-6 offset-3">
+                <h2>Tabla de Cliente</h2>
                     <table className="table">
                         <thead>
                             <tr>
@@ -96,8 +103,11 @@ const HomeComponent = () => {
                     </table>
                 </div>
             </div>
+
+            
             <div className="row">
                 <div className="col-sm-6 offset-3">
+                <h2>Tabla de Alumnos</h2>
                     <table className="table">
                         <thead>
                             <tr>
