@@ -1,5 +1,6 @@
 import React, { useState } from "react";  
-import { read, utils, writeFile } from 'xlsx';
+import { read, utils,} from 'xlsx'; // para poder exportar el xls se debe importar esta dependencia " writeFile"
+import "./home.css"
 
 const HomeComponent = () => {
     const [dataCliente, setdataCliente] = useState([]);
@@ -26,6 +27,15 @@ const HomeComponent = () => {
 function Enviar () {
     console.log(dataCliente) // aca debe ir la funcion post para enviar a info 
 }
+
+const dataClienteFiltered = dataCliente.map(row => {
+    Object.keys(row).forEach(key => {
+        if(!row[key]) {
+            delete row[key];
+        }
+    });
+    return row;
+});
 
 
   /*   const handleExport = () => {  // funcion para exportar el archivo xls
@@ -76,6 +86,7 @@ function Enviar () {
                             <tr>
                                 <th scope="col">Empresa</th>
                                 <th scope="col">Encargado</th>
+                                <th scope="col">Correo</th>
                                 <th scope="col">Nombre Curso</th>
                                 <th scope="col">Inscritos</th>
                                 <th scope="col">Valor</th>
@@ -83,15 +94,16 @@ function Enviar () {
                         </thead>
                         <tbody> 
                         {
-                                    dataCliente.length
+                                    dataClienteFiltered.length
                                     ?
-                                    dataCliente.map((movie) => (
+                                    dataClienteFiltered.map((data) => (
                                         <tr>
-                                            <th>{ movie.Empresa }</th>
-                                            <td>{ movie.Encargado }</td>
-                                            <td>{ movie.Curso }</td>
-                                            <td>{ movie.Inscritos }</td>
-                                            <td>{ movie.Valor }</td>
+                                            <td className={data.Empresa ? '' : 'empty-cell'}>{ data.Empresa }</td>
+                                            <td className={data.Encargado ? '' : 'empty-cell'}>{ data.Encargado}</td>
+                                            <td className={data.Email ? '' : 'empty-cell'}>{ data.Email}</td>
+                                            <td className={data.Curso ? '' : 'empty-cell'}>{ data.Curso }</td>
+                                            <td className={data.Inscritos ? '' : 'empty-cell'}>{ data.Inscritos }</td>
+                                            <td className={data.Valor ? '' : 'empty-cell'}>{ data.Valor }</td>             
                                         </tr> 
                                     ))
                                     :
@@ -122,12 +134,12 @@ function Enviar () {
                                  {
                                     dataCliente.length
                                     ?
-                                    dataCliente.map((movie, index) => (
+                                    dataCliente.map((data, index) => (
                                         <tr key={index}>
                                             <th scope="row">{ index + 1 }</th>
-                                            <td>{ movie.Nombre }</td>
-                                            <td>{ movie.Rut }</td>
-                                            <td>{ movie.Correo }</td>
+                                            <td>{ data.Nombre }</td>
+                                            <td>{ data.Rut }</td>
+                                            <td>{ data.Correo }</td>
                                         </tr> 
                                     ))
                                     :
@@ -143,5 +155,6 @@ function Enviar () {
 
     );
 };
+
 
 export default HomeComponent;
